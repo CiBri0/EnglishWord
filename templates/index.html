@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+<body>
+    <form action="" method="post">
+        <input type="text" name = "en" id = "en">
+        <input type="text" name = "fr" id = "fr">
+        <button onclick="v()">ADD</button>
+    </form>
+
+
+    <p id="word">efe</p>
+
+    <input type="text" onkeypress="clickPress(event)" id = "test">
+
+    <script>
+        let l_en = {{ l_en|safe }}
+        let l_fr = {{ l_fr|safe }}
+        let current = 0
+        let d = document.getElementById("word")
+
+        function word() {
+            current = Math.floor(Math.random() * l_en.length)
+
+            d.innerHTML = l_en[current]
+        }
+
+        word()
+
+
+
+        function validate(inputs) {
+            for (let i = 0; i < inputs.length; i++) {
+                if (inputs[i] == "") {
+                    return false;
+                }
+            }
+            return true
+        }
+
+        function v() {
+            n = [document.getElementById("en").value, document.getElementById("fr").value]
+            console.log(n)
+            if (!validate(n)) {
+                alert("Un champ n'est pas remplis")
+                return
+            }
+        }
+
+        function test() {
+            if (document.getElementById("test").value == l_fr[current]) {
+                alert("GG")
+            } else {
+                alert("Perdu c'était " + l_fr[current])
+            }
+
+            word()
+        }
+
+        function clickPress(event) {
+            if (event.key == "Enter") {
+                test()
+            }
+        }
+    </script>
+</body>
+</html>
